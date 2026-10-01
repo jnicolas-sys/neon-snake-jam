@@ -2,6 +2,7 @@ package com.sixd.neonsnakejam;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.webkit.WebChromeClient;
@@ -15,15 +16,14 @@ public class MainActivity extends Activity {
     @SuppressLint("SetJavaScriptEnabled")
     @Override public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getWindow().getDecorView().setSystemUiVisibility(
-            View.SYSTEM_UI_FLAG_FULLSCREEN |
-            View.SYSTEM_UI_FLAG_HIDE_NAVIGATION |
-            View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY |
-            View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN |
-            View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION |
-            View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
+        getWindow().setStatusBarColor(Color.BLACK);
+        getWindow().setNavigationBarColor(Color.BLACK);
+        getWindow().getDecorView().setSystemUiVisibility(0);
+
         webView = new WebView(this);
+        webView.setBackgroundColor(Color.BLACK);
         setContentView(webView);
+
         WebSettings s = webView.getSettings();
         s.setJavaScriptEnabled(true);
         s.setDomStorageEnabled(true);
@@ -35,8 +35,7 @@ public class MainActivity extends Activity {
     }
 
     @Override public void onBackPressed() {
-        webView.evaluateJavascript("(document.getElementById('game').classList.contains('on')||document.getElementById('records').classList.contains('on')) ? (goHome(),'HOME') : 'EXIT'", value -> {
-            if ("\"EXIT\"".equals(value)) super.onBackPressed();
-        });
+        if (webView.canGoBack()) webView.goBack();
+        else super.onBackPressed();
     }
 }

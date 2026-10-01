@@ -2,7 +2,7 @@ name: Build Android APK
 
 on:
   push:
-    branches: ["main"]
+    branches: ["main", "escape-apk-build"]
   workflow_dispatch:
 
 permissions:
@@ -27,5 +27,5 @@ jobs:
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: neon-snake-jam-apk
+          name: neon-snake-escape-apk
           path: app/build/outputs/apk/debug/app-debug.apk

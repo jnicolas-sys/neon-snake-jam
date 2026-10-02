@@ -20,8 +20,12 @@ jobs:
       - uses: gradle/actions/setup-gradle@v4
         with:
           gradle-version: '8.9'
-      - name: Prepare game asset
-        run: mkdir -p app/src/main/assets && cat gameparts/part* > app/src/main/assets/index.html
+      - name: Prepare game assets
+        run: |
+          mkdir -p app/src/main/assets
+          cp index.html app/src/main/assets/index.html
+          test -f app/src/main/assets/cover.jpg
+          test -f app/src/main/assets/music.mp3
       - name: Build debug APK
         run: gradle assembleDebug
       - name: Upload APK

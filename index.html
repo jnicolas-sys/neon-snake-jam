@@ -1,4 +1,4 @@
-<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"><title>Neon Snake Escape v0.9.0</title>
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"><title>Neon Snake Escape v1.0.4</title>
 <style>*{box-sizing:border-box;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}html,body{margin:0;overflow:hidden;touch-action:none;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;background:#05050d;color:white;font-family:system-ui}.app{height:100vh;display:flex;flex-direction:column;background:radial-gradient(circle at 50% 0,#202052,#060610 55%)}header{text-align:center;padding:7px}h1{font-size:19px;letter-spacing:3px;margin:0;text-shadow:0 0 16px #0ff}.sub{font-size:10px;color:#8ff}.hud{display:flex;justify-content:center;gap:12px;font-size:12px;margin:5px}.lives{font-size:16px}.vp{position:relative;flex:1;overflow:hidden;border-block:1px solid #0ff5}.world{position:absolute;background:#080814;background-image:linear-gradient(#0ff12 1px,transparent 1px),linear-gradient(90deg,#0ff12 1px,transparent 1px);transform-origin:0 0}.snake{position:absolute;inset:0;pointer-events:none;filter:drop-shadow(0 0 6px var(--c))}.snake svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}.o{fill:none;stroke:var(--c);stroke-width:15;stroke-linecap:round;stroke-linejoin:round}.i{fill:none;stroke:#080814;stroke-width:9;stroke-linecap:round;stroke-linejoin:round}.hit{position:absolute;pointer-events:auto}.head{position:absolute;background:var(--c);pointer-events:auto;clip-path:polygon(100% 50%,60% 4%,0 13%,10% 50%,0 87%,60% 96%)}.map{position:absolute;right:8px;bottom:8px;width:96px;height:96px;background:#060616e8;border:1px solid #0ff;border-radius:8px;z-index:20}.tip{position:absolute;left:8px;bottom:8px;padding:6px;background:#050513dd;border-radius:7px;font-size:10px;color:#bff;z-index:20}.toast{position:absolute;left:50%;top:12px;transform:translateX(-50%);padding:8px 12px;background:#24070ddd;border:1px solid #ff486d;border-radius:10px;color:#ff8ca3;font-weight:900;opacity:0;z-index:30}.toast.on{opacity:1}button{border:1px solid #0ff;background:#09091c;color:white;border-radius:8px;padding:6px 10px;font-weight:800}.overlay{position:fixed;inset:0;background:#03030def;display:none;align-items:center;justify-content:center;z-index:50}.overlay.on{display:flex}.card{padding:20px;width:min(90%,360px);text-align:center;background:#0d0d24;border:1px solid #ff486d;border-radius:15px}
 #damageFlash{position:fixed;inset:0;pointer-events:none;z-index:999;opacity:0;box-shadow:inset 0 0 25px 9px rgba(255,0,35,.98),inset 0 0 80px 28px rgba(255,0,35,.48)}
 #damageFlash.hit{animation:damageFlash .55s ease-out}
@@ -42,7 +42,17 @@ box-shadow:0 0 35px rgba(0,240,255,.18);text-align:center;color:white}
 .recordsCard table{width:100%;border-collapse:collapse;font-size:13px}.recordsCard th,.recordsCard td{padding:7px 4px;border-bottom:1px solid #18344a;text-align:center}
 .recordsCard h2{text-align:center}.recordsTabs{display:flex;gap:6px;margin:12px 0}.recordsTabs button{flex:1;padding:9px 4px}
 #scoreNow{font-weight:800;color:#fff29a}
-#countdownEdge{position:fixed;inset:0;pointer-events:none;z-index:850;opacity:0}#countdownEdge.warn{animation:edgeSoft 1.15s infinite}#countdownEdge.danger{animation:edgeHard .42s infinite}@keyframes edgeSoft{0%,100%{opacity:.08;box-shadow:inset 0 0 18px 3px #fff3}50%{opacity:.62;box-shadow:inset 0 0 28px 7px #fffc}}@keyframes edgeHard{0%,100%{opacity:.18;box-shadow:inset 0 0 25px 6px #fff6}50%{opacity:1;box-shadow:inset 0 0 42px 12px #fff}}
+#countdownEdge{position:fixed;inset:0;pointer-events:none;z-index:850;opacity:0}
+#countdownEdge.warn{animation:edgeSoft 1.15s infinite}
+#countdownEdge.danger{animation:edgeHard .42s infinite}
+#countdownEdge.lastlife{animation:edgeRed .85s infinite}
+#countdownEdge.warn.lastlife{animation:edgeAltSoft 1.15s infinite}
+#countdownEdge.danger.lastlife{animation:edgeAltHard .52s infinite}
+@keyframes edgeSoft{0%,100%{opacity:.08;box-shadow:inset 0 0 18px 3px #fff3}50%{opacity:.62;box-shadow:inset 0 0 28px 7px #fffc}}
+@keyframes edgeHard{0%,100%{opacity:.18;box-shadow:inset 0 0 25px 6px #fff6}50%{opacity:1;box-shadow:inset 0 0 42px 12px #fff}}
+@keyframes edgeRed{0%,100%{opacity:.12;box-shadow:inset 0 0 22px 5px #f003}50%{opacity:.9;box-shadow:inset 0 0 38px 10px #f00d}}
+@keyframes edgeAltSoft{0%,100%{opacity:.75;box-shadow:inset 0 0 34px 9px #f00c}25%,75%{opacity:.05}50%{opacity:.75;box-shadow:inset 0 0 34px 9px #fffd}}
+@keyframes edgeAltHard{0%,100%{opacity:1;box-shadow:inset 0 0 42px 12px #f00e}25%,75%{opacity:.08}50%{opacity:1;box-shadow:inset 0 0 42px 12px #fff}}
 #coverScreen{position:fixed;inset:0;z-index:2000;background:#000;display:flex;align-items:center;justify-content:center;overflow:hidden}
 #coverScreen.off{display:none}
 #coverArt{position:relative;height:100%;max-width:100%;aspect-ratio:856/1536;background:#000 center/contain no-repeat}
@@ -64,7 +74,7 @@ box-shadow:0 0 35px rgba(0,240,255,.18);text-align:center;color:white}
 <div id="damageFlash"></div>
 <div id="recordsPanel"><div class="recordsCard"><h2>🏆 RÉCORDS</h2>
 <div class="recordsTabs"><button data-rlevel="1">FÁCIL</button><button data-rlevel="2">MEDIO</button><button data-rlevel="3">DIFÍCIL</button></div>
-<div id="recordsList"></div><button id="closeRecords">VOLVER</button></div></div><div class="app"><header><h1>NEON SNAKE ESCAPE</h1><div class="sub">v1.0 · <span id="levelName">MEDIO</span> · <span id="scoreNow">0 pts</span></div><div class="hud"><span id="clock">00:00.0</span><span id="count"></span><span id="moves"></span><span id="lives" class="lives"></span></div><label class="mapToggle"><input id="showMap" type="checkbox"><span>MAPA</span></label><button id="new">↻ Nuevo</button> <button id="center">⌖ ACTIVIDAD</button><button id="musicBtn">♫ MÚSICA</button></header><div id="vp" class="vp"><div id="world" class="world"></div><canvas id="map" class="map" width="192" height="192"></canvas><div class="tip">Arrastra para explorar · TOCA CUALQUIER PARTE de una serpiente</div><div id="toast" class="toast">BLOQUEADA · −1 ❤️</div></div></div><div id="over" class="overlay"><div class="card"><h2>SIN VIDAS</h2><p>Cinco intentos bloqueados. La maraña gana esta vez.</p><button id="again">Otro tablero</button></div></div>
+<div id="recordsList"></div><button id="closeRecords">VOLVER</button></div></div><div class="app"><header><h1>NEON SNAKE ESCAPE</h1><div class="sub">v1.0.4 · <span id="levelName">MEDIO</span> · <span id="scoreNow">0 pts</span></div><div class="hud"><span id="clock">00:00.0</span><span id="count"></span><span id="moves"></span><span id="lives" class="lives"></span></div><label class="mapToggle"><input id="showMap" type="checkbox"><span>MAPA</span></label><button id="new">↻ Nuevo</button> <button id="center">⌖ ACTIVIDAD</button><button id="musicBtn">♫ MÚSICA</button></header><div id="vp" class="vp"><div id="world" class="world"></div><canvas id="map" class="map" width="192" height="192"></canvas><div class="tip">Arrastra para explorar · TOCA CUALQUIER PARTE de una serpiente</div><div id="toast" class="toast">BLOQUEADA · −1 ❤️</div></div></div><div id="over" class="overlay"><div class="card"><h2>SIN VIDAS</h2><p>Cinco intentos bloqueados. La maraña gana esta vez.</p><button id="again">Otro tablero</button></div></div>
 <script>
 const N=30,C=34,PAD=90,cols=['#00ffff','#ff31e6','#caff28','#ff9d21','#28ff7d','#aa66ff','#ff486d','#40a9ff','#ffd83d'],dirs=[[1,0],[-1,0],[0,1],[0,-1]],R=n=>Math.floor(Math.random()*n),K=(x,y)=>x+','+y,inside=(x,y)=>x>=0&&y>=0&&x<N&&y<N;
 const vp=document.getElementById('vp'),world=document.getElementById('world'),cv=document.getElementById('map'),cx=cv.getContext('2d');let snakes=[],uid=1,px=0,py=0,drag=null,pan=null,lives=5,mv=0,start=0;
@@ -103,8 +113,8 @@ function make(){
  document.getElementById('over').classList.remove('on')
 }
 function pd(points){let a=points.map(p=>[p[0]*C+C/2,p[1]*C+C/2]),d=`M ${a[0][0]} ${a[0][1]}`;for(let i=1;i<a.length;i++)d+=` L ${a[i][0]} ${a[i][1]}`;return d}
-function draw(){world.style.cssText+=`;width:${N*C+PAD*2}px;height:${N*C+PAD*2}px;background-size:${C}px ${C}px;background-position:${PAD}px ${PAD}px`;world.innerHTML='';snakes.forEach(s=>{let w=document.createElement('div');w.className='snake';w.style.transform=`translate(${PAD}px,${PAD}px)`;w.style.setProperty('--c',s.color);let sv=document.createElementNS('http://www.w3.org/2000/svg','svg'),a=document.createElementNS('http://www.w3.org/2000/svg','path'),b=document.createElementNS('http://www.w3.org/2000/svg','path'),d=pd(s.path);a.setAttribute('d',d);a.setAttribute('class','o');b.setAttribute('d',d);b.setAttribute('class','i');sv.append(a,b);w.append(sv);s.path.forEach(p=>{let h=document.createElement('div');h.className='hit';h.style.cssText=`left:${p[0]*C}px;top:${p[1]*C}px;width:${C}px;height:${C}px`;h.style.pointerEvents='auto';h.onpointerdown=e=>snakeDown(e,s);w.append(h)});let p=s.path[0],q=document.createElement('div'),[dx,dy]=hd(s),ang=dx==1?0:dx==-1?180:dy==1?90:-90;q.className='head';q.style.cssText=`left:${p[0]*C+3}px;top:${p[1]*C+4}px;width:${C-6}px;height:${C-8}px;transform:rotate(${ang}deg)`;q.onpointerdown=e=>snakeDown(e,s);w.append(q);world.append(w)});document.getElementById('count').textContent='Serp: '+snakes.length;document.getElementById('moves').textContent='Mov: '+mv;livesEl();mini()}
-function livesEl(){document.getElementById('lives').textContent='❤️'.repeat(lives)+'🖤'.repeat(5-lives)}
+function draw(){world.style.cssText+=`;width:${N*C+PAD*2}px;height:${N*C+PAD*2}px;background-size:${C}px ${C}px;background-position:${PAD}px ${PAD}px`;world.innerHTML='';snakes.forEach(s=>{let w=document.createElement('div');w.className='snake';w.dataset.sid=s.id;w.style.transform=`translate(${PAD}px,${PAD}px)`;w.style.setProperty('--c',s.color);let sv=document.createElementNS('http://www.w3.org/2000/svg','svg'),a=document.createElementNS('http://www.w3.org/2000/svg','path'),b=document.createElementNS('http://www.w3.org/2000/svg','path'),d=pd(s.path);a.setAttribute('d',d);a.setAttribute('class','o');b.setAttribute('d',d);b.setAttribute('class','i');sv.append(a,b);w.append(sv);s.path.forEach(p=>{let h=document.createElement('div');h.className='hit';h.style.cssText=`left:${p[0]*C}px;top:${p[1]*C}px;width:${C}px;height:${C}px`;h.style.pointerEvents='auto';h.onpointerdown=e=>snakeDown(e,s);w.append(h)});let p=s.path[0],q=document.createElement('div'),[dx,dy]=hd(s),ang=dx==1?0:dx==-1?180:dy==1?90:-90;q.className='head';q.style.cssText=`left:${p[0]*C+3}px;top:${p[1]*C+4}px;width:${C-6}px;height:${C-8}px;transform:rotate(${ang}deg)`;q.onpointerdown=e=>snakeDown(e,s);w.append(q);world.append(w)});document.getElementById('count').textContent='Serp: '+snakes.length;document.getElementById('moves').textContent='Mov: '+mv;livesEl();mini()}
+function livesEl(){document.getElementById('lives').textContent='❤️'.repeat(lives)+'🖤'.repeat(5-lives);document.getElementById('countdownEdge')?.classList.toggle('lastlife',lives===1)}
 function ap(){px=Math.min(0,Math.max(vp.clientWidth-(N*C+PAD*2),px));py=Math.min(0,Math.max(vp.clientHeight-(N*C+PAD*2),py));world.style.transform=`translate(${px}px,${py}px)`;mini()}
 function center(){px=(vp.clientWidth-(N*C+PAD*2))/2;py=(vp.clientHeight-(N*C+PAD*2))/2;ap()}
 function activity(){
@@ -151,7 +161,7 @@ function updateScore(){let e=document.getElementById('scoreNow');if(e)e.textCont
 function finalScore(){
  let sec=Math.max(1,Math.floor((performance.now()-start)/1000));
  let lifeBonus=lives*1000;
- let remaining=Math.max(0,Math.ceil((levelTimeMs-(performance.now()-start))/1000));
+ let remaining=Math.max(0,Math.ceil((levelCfg[currentLevel].time*1000-(performance.now()-start))/1000));
  let timeBonus=remaining*10;
  return {total:score+lifeBonus+timeBonus,sec,lifeBonus,timeBonus}
 }
@@ -164,7 +174,7 @@ function saveRecord(r){
 }
 function win(){
  window.gameFinished=true;
- const edge=document.getElementById('countdownEdge');if(edge)edge.classList.remove('warn','danger');
+ const edge=document.getElementById('countdownEdge');if(edge)edge.classList.remove('warn','danger','lastlife');
  let r=finalScore(),place=saveRecord(r),ov=document.getElementById('over'),card=ov.querySelector('.card');
  card.innerHTML='<h2>✨ TABLERO LIMPIO</h2><p class="big">'+r.total+' PUNTOS</p><p>Serpientes: '+score+' · Vidas: +'+r.lifeBonus+' · Tiempo: +'+r.timeBonus+'</p><p>⏱ '+r.sec+' s · ❤️ '+lives+(place?' · 🏆 Puesto '+place:'')+'</p><button id="winAgain">OTRO TABLERO</button><button id="winLevels">NIVELES</button>';
  ov.classList.add('on');navigator.vibrate?.([70,40,70,40,120]);
@@ -173,6 +183,13 @@ function win(){
 }
 function fail(){damageFX();lives--;livesEl();document.getElementById('toast').classList.add('on');setTimeout(()=>document.getElementById('toast').classList.remove('on'),650);navigator.vibrate?.([90,35,90]);if(!lives)document.getElementById('over').classList.add('on')}function sd(e,s){e.preventDefault();e.stopPropagation();let[d,f]=hd(s);drag={s,x:e.clientX,y:e.clientY,dx:d,dy:f,done:false}}
 vp.onpointerdown=e=>{if(e.target===vp||e.target===world)pan={x:e.clientX,y:e.clientY,px,py}};vp.onpointermove=e=>{if(pan){px=pan.px+e.clientX-pan.x;py=pan.py+e.clientY-pan.y;ap()}};vp.onpointerup=vp.onpointercancel=()=>{drag=null;pan=null};
+function renderMovingSnake(s){
+ const w=[...world.querySelectorAll('.snake')].find(el=>el.dataset.sid==s.id);
+ if(!w)return draw();
+ const paths=w.querySelectorAll('svg path'),d=pd(s.path);paths.forEach(p=>p.setAttribute('d',d));
+ const h=w.querySelector('.head'),p=s.path[0],[dx,dy]=hd(s),ang=dx==1?0:dx==-1?180:dy==1?90:-90;
+ if(h)h.style.cssText=`left:${p[0]*C+3}px;top:${p[1]*C+4}px;width:${C-6}px;height:${C-8}px;transform:rotate(${ang}deg)`;
+}
 function exit(s){
  let tm=setInterval(()=>{
   if(!snakes.includes(s)){clearInterval(tm);return}
@@ -186,7 +203,7 @@ function exit(s){
   let n=nxt(s);
   s.path.unshift(n);
   s.path.pop();
-  draw();
+  renderMovingSnake(s);
   if(s.path.every(p=>!inside(...p))){
    snakes=snakes.filter(x=>x.id!==s.id);
    score+=100;updateScore();
@@ -204,6 +221,9 @@ document.getElementById('center').onclick=activity;
 document.getElementById('again').onclick=make;
 document.addEventListener('contextmenu',e=>e.preventDefault());
 window.onresize=ap;
+window.androidPauseAudio=()=>{window.__resumeMusic=musicOn&&!gameMusic.paused;gameMusic.pause()};
+window.androidResumeAudio=()=>{if(window.__resumeMusic&&musicOn)gameMusic.play().catch(()=>{})};
+window.androidStopAudio=()=>{gameMusic.pause();gameMusic.currentTime=0};
 let score=0;
 let musicOn=true,musicCtx=null,musicMaster=null,musicTimer=null,musicBar=0;
 let musicStartSnakes=0;
